@@ -28,3 +28,18 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+    
+    - name: List build directory contents (for debugging)
+      run: ls -R bin
+
+    - name: Upload Linux artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ github.event.repository.name }}-linux-${{ github.ref_name }}-${{ github.sha }}
+        path: bin/linux/
+
+    - name: Upload Windows artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ github.event.repository.name }}-windows-${{ github.ref_name }}-${{ github.sha }}
+        path: bin/windows/
