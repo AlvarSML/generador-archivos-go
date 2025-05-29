@@ -22,9 +22,18 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.23.1'
+    
+    - name: Build for Linux (Ubuntu)
+      run: |
+        APP_NAME="generador-archivos-ubuntu" # <-- ¡IMPORTANTE! Cambia esto
+        mkdir -p bin/linux # Este comando crea el directorio bin/linux si no existe
+        GOOS=linux GOARCH=amd64 go build -o bin/linux/${APP_NAME} .
 
-    - name: Build
-      run: go build -v ./...
+    - name: Build for Windows
+      run: |
+        APP_NAME="generador-archivos-windows" # <-- ¡IMPORTANTE! Cambia esto
+        mkdir -p bin/windows # Este comando crea el directorio bin/windows si no existe
+        GOOS=windows GOARCH=amd64 go build -o bin/windows/${APP_NAME}.exe .
 
     - name: Test
       run: go test -v ./...
